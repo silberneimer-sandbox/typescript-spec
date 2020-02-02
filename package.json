@@ -3,6 +3,20 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.ts",
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    }
+  },
   "scripts": {
     "start": "npx tsc && node dist/index.js",
     "test": "npx jest"

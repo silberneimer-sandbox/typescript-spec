@@ -1,9 +1,25 @@
+
+
 describe('Promise', () => {
-    it('引数の適用(Apply)', () => {
+    it('resolve', () => {
         expect(helloWorld()).resolves.toBe("Hello, World!")
-        expect(fail()).rejects.toBe(new Error("should be error"))
+    });
+    it('reject', () => {
+        expect(shouldBeError()).rejects.toBe(ExpectError)
+    });
+    it('then', () => {
+        expect.assertions(1);
+        helloWorld().then(r => expect(r).toMatch('Hello, World!'))
+    });
+    it('catch', () => {
+        expect.assertions(1);
+        shouldBeError().catch((e) => {
+            expect(e as Error).toStrictEqual(ExpectError);
+        })
     });
 });
+
+const ExpectError = new Error("expect error")
 
 function helloWorld(): Promise<string> {
     return new Promise<string>((resolve) => {
@@ -11,8 +27,8 @@ function helloWorld(): Promise<string> {
     })
 }
 
-function fail(): Promise<string> {
+function shouldBeError(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-        reject(new Error("should be error"))
+        reject(ExpectError)
     })
 }
